@@ -11,3 +11,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  title       String
+  date        DateTime  @default(now())
+  description String?
+  products    Product[]
+}
+
+model Product {
+  id            Int    @id @default(autoincrement())
+  serialNumber  String
+  isNew         Int // 1- новый, 0 - б.у
+  photo         String
+  title         String
+  type          String
+  specification String // Характеристики товара
+
+  // guarantee - вынес а плосеие поля для удобства сортировки и фильтрации
+  // price - также , указываю явные поля
+  guaranteeStart DateTime
+  guaranteeEnd   DateTime
+
+  priceUsd Float
+  priceUah Float
+
+  // Relation Order
+
+  orderId Int
+  order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
