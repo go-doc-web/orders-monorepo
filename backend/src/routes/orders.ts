@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 import { prisma } from "../config/prisma.js";
 
 const router = Router();
 
 // Get - Получить все прриходы с их продуктами
 
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const orders = await prisma.order.findMany({
       include: {
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 
 // Delete - удалить приход по ID
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const deletedOrder = await prisma.order.delete({
