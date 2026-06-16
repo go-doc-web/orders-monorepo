@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Product } from "@/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,7 +19,7 @@ export const fetchProducts = createAsyncThunk(
 );
 
 interface ProductsState {
-  items: any[];
+  items: Product[];
   loading: boolean;
   error: string | null;
 }

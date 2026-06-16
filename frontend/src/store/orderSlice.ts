@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Order } from "../types/index";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,7 +19,7 @@ export const fetchOrders = createAsyncThunk(
 );
 
 interface OrdersState {
-  items: any[];
+  items: Order[];
   loading: boolean;
   error: string | null;
 }
