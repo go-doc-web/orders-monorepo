@@ -10,7 +10,7 @@ import { initCounterSocket } from "./sockets/counter.js";
 
 const PORT: number = Number(process.env.PORT) || 3001;
 
-const app: Application = express();
+export const app: Application = express();
 const httpServer = createServer(app);
 
 // Настраиваем инстанс Socket.io («пульт управления сокетами»)
@@ -30,10 +30,12 @@ app.use("/api/products", productsRouter);
 
 initCounterSocket(io);
 
-httpServer.listen(PORT, () => {
-  console.log(
-    `🚀 Модульный сервер Express + WebSockets запущен на порту ${PORT}`,
-  );
-  console.log(`🔗 Проверить приходы: http://localhost:${PORT}/api/orders`);
-  console.log(`🔗 Проверить продукты: http://localhost:${PORT}/api/products`);
-});
+if (process.env.NODE_ENV !== "test") {
+  httpServer.listen(PORT, () => {
+    console.log(
+      `🚀 Модульный сервер Express + WebSockets запущен на порту ${PORT}`,
+    );
+    console.log(`🔗 Проверить приходы: http://localhost:${PORT}/api/orders`);
+    console.log(`🔗 Проверить продукты: http://localhost:${PORT}/api/products`);
+  });
+}
