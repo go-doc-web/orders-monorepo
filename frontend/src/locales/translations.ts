@@ -12,6 +12,7 @@ export const translations = {
     },
     topMenu: {
       activeSessions: "Активних сесій",
+      search: "Пошук",
     },
   },
   en: {
@@ -25,6 +26,7 @@ export const translations = {
     },
     topMenu: {
       activeSessions: "Active sessions",
+      search: "Search",
     },
   },
   ru: {
@@ -38,6 +40,7 @@ export const translations = {
     },
     topMenu: {
       activeSessions: "Активных сессий",
+      search: "Поиск",
     },
   },
 };

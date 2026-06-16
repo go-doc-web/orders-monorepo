@@ -26,7 +26,7 @@ export default function Sidebar(): React.JSX.Element {
         zIndex: 1000,
       }}
     >
-      {/* Блок Профиля (Православный мужской аватар) */}
+      {/* Profile  -Avatar */}
       <div className="text-center my-4">
         <div className="position-relative d-inline-block">
           <Image
@@ -52,7 +52,7 @@ export default function Sidebar(): React.JSX.Element {
 
       <hr className="text-muted my-2" />
 
-      {/* Навигационное меню через компоненты React-Bootstrap */}
+      {/* Nav Menu   React-Bootstrap */}
       <Nav className="flex-column flex-grow-1 mt-3">
         {SIDEBAR_MENU_ITEMS.map((item: SidebarMenuItem) => {
           const isActive: boolean = pathname === item.pathname;
@@ -78,7 +78,7 @@ export default function Sidebar(): React.JSX.Element {
         })}
       </Nav>
 
-      {/* Переключатель языков  */}
+      {/* Switch lang */}
       <div className="mt-auto pt-3 border-top text-center">
         <ButtonGroup
           size="sm"
