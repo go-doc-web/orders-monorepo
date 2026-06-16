@@ -1,9 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import ordersReducer from "./orderSlice";
+import productsSlice from "./productsSlice";
 
 export const makeStore = () => {
   return configureStore({
     // add слайсы (orders, products)
-    reducer: {},
+    reducer: {
+      orders: ordersReducer,
+      products: productsSlice,
+    },
     devTools: process.env.NODE_ENV !== "production",
   });
 };
