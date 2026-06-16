@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/context/LanguageContext";
@@ -28,11 +29,14 @@ export default function Sidebar(): React.JSX.Element {
       {/* Блок Профиля (Православный мужской аватар) */}
       <div className="text-center my-4">
         <div className="position-relative d-inline-block">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&h=100&fit=crop&crop=faces"
             alt="User Avatar"
+            width={90}
+            height={90}
+            unoptimized
             className="rounded-circle border"
-            style={{ width: "90px", height: "90px", objectFit: "cover" }}
+            style={{ objectFit: "cover" }}
           />
 
           <Link
