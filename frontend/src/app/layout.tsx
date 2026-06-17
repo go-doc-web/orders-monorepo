@@ -32,7 +32,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable}`}
     >
-      <body>
+      <body className={geistSans.className}>
         <StoreProvider>
           <LanguageProvider>
             <div className="d-flex bg-light min-vh-100">

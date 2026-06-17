@@ -1,5 +1,10 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+code,
+pre {
+  font-family: var(--font-geist-mono), monospace;
+}
+
 .main-content-layout {
   margin-left: 0;
 }
