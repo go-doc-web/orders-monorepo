@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { LanguageProvider } from "../context/LanguageContext";
 import StoreProvider from "../store/StoreProvider";
+import Sidebar from "../components/sidebar/Sidebar";
+import TopMenu from "@/components/top-menu/TopMenu";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,10 +27,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
       <body>
         <StoreProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <div className="d-flex bg-light min-vh-100">
+              {/* Сайдбар Слева*/}
+              <Sidebar />
+              {/* Top Menu */}
+              <div className="w-100 d-flex flex-column main-content-layout">
+                <TopMenu />
+                {/* Main */}
+                <main className="p-4 flex-grow-1">{children}</main>
+              </div>
+            </div>
+          </LanguageProvider>
         </StoreProvider>
       </body>
     </html>

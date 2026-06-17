@@ -1,1 +1,11 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
+
+.main-content-layout {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  .main-content-layout {
+    margin-left: 260px;
+  }
+}

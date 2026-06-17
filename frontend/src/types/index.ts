@@ -22,6 +22,13 @@ export interface Order {
   title: string;
   date: string;
   description: string;
-  // Вложенный массив продуктов  пункт 5 ТЗ
+  // Inner array of products  -  5 ТЗ
   products?: Product[];
+}
+
+// Interface for Items Menu
+export interface SidebarMenuItem {
+  pathname: string;
+  translationKey: "orders" | "groups" | "products" | "users" | "settings";
+  icon: React.ReactNode;
 }
