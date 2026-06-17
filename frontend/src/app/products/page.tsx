@@ -28,7 +28,9 @@ export default function ProductsPage(): React.JSX.Element {
   return (
     <div className="container-fluid p-0">
       <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between mb-4 gap-2">
-        <h3 className="fw-bold text-secondary m-0">Продукты</h3>
+        <h3 className="fw-bold text-secondary m-0 fs-5">
+          {t.menu.products} / {filteredProducts.length}
+        </h3>
 
         <div style={{ maxWidth: "200px" }} className="w-100">
           <select
@@ -80,6 +82,7 @@ export default function ProductsPage(): React.JSX.Element {
                     {/* 2. Type  of Products*/}
                     <td className="text-secondary">
                       {(() => {
+                        //TODO DRY - вынести в отдельную функцию
                         const lowerType =
                           product?.type?.toLowerCase() as keyof typeof t.productTypes;
                         return t.productTypes[lowerType] || product?.type;
