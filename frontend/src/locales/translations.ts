@@ -10,6 +10,25 @@ export const translations = {
       users: "КОРИСТУВАЧІ",
       settings: "НАЛАШТУВАННЯ",
     },
+    orders: {
+      title: "Приходи",
+      productsCount: "Продукти",
+      sum: "Сума",
+      monthShort: [
+        "січ",
+        "лют",
+        "берез",
+        "квіт",
+        "трав",
+        "черв",
+        "лип",
+        "серп",
+        "верес",
+        "жовт",
+        "лист",
+        "груд",
+      ],
+    },
     products: {
       title: "Назва",
       type: "Тип",
@@ -30,6 +49,9 @@ export const translations = {
       activeSessions: "Активних сесій",
       search: "Пошук",
     },
+    error: {
+      page: "Помилка завантаження даних. Перевірте підключення до сервера.",
+    },
   },
   en: {
     title: "Inventory Management System",
@@ -39,6 +61,25 @@ export const translations = {
       products: "PRODUCTS",
       users: "USERS",
       settings: "SETTINGS",
+    },
+    orders: {
+      title: "Orders",
+      productsCount: "Products",
+      sum: "Sum",
+      monthShort: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
     },
     products: {
       title: "Title",
@@ -60,6 +101,9 @@ export const translations = {
       activeSessions: "Active sessions",
       search: "Search",
     },
+    error: {
+      page: "Error loading data. Check your connection to the server.",
+    },
   },
   ru: {
     title: "Система Управления Инвентарем",
@@ -69,6 +113,25 @@ export const translations = {
       products: "ПРОДУКТЫ",
       users: "ПОЛЬЗОВАТЕЛИ",
       settings: "НАСТРОЙКИ",
+    },
+    orders: {
+      title: "Приходы",
+      productsCount: "Продукты",
+      sum: "Сумма",
+      monthShort: [
+        "янв",
+        "фев",
+        "мар",
+        "апр",
+        "май",
+        "июн",
+        "июл",
+        "авг",
+        "сен",
+        "окт",
+        "ноя",
+        "дек",
+      ],
     },
     products: {
       title: "Название",
@@ -89,6 +152,9 @@ export const translations = {
     topMenu: {
       activeSessions: "Активных сессий",
       search: "Поиск",
+    },
+    error: {
+      page: "Ошибка загрузки данных. Проверьте подключение к серверу.",
     },
   },
 };
