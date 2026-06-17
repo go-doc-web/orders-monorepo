@@ -1,37 +1,23 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useTranslation } from "@/context/LanguageContext";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
-
-const products = [
-  {
-    id: 1,
-    title: "Lenovo ThinkPad T14",
-    type: "Laptops",
-    guaranteeStart: "2026-04-01T00:00:00.000Z",
-    guaranteeEnd: "2028-04-01T00:00:00.000Z",
-    priceUsd: 1200,
-    priceUah: 48000,
-    order: {
-      title: "Приход №1 от Главного склада",
-    },
-  },
-  {
-    id: 2,
-    title: "Dell UltraSharp U2723QE",
-    type: "Monitors",
-    guaranteeStart: "2026-05-15T00:00:00.000Z",
-    guaranteeEnd: "2029-05-15T00:00:00.000Z",
-    priceUsd: 600,
-    priceUah: 24000,
-    order: {
-      title: "Поставка серверов (Киев)",
-    },
-  },
-];
+import { fetchProducts } from "@/store/productsSlice";
+import { RootState } from "@/store/store";
 
 export default function ProductsPage(): React.JSX.Element {
   const { t, locale } = useTranslation();
+  const dispatch = useAppDispatch();
+  const {
+    items: products,
+    loading,
+    error,
+  } = useAppSelector((state: RootState) => state.products);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
   return (
     <div className="container-fluid p-0">
       <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-md-between mb-4 gap-2">
@@ -47,10 +33,16 @@ export default function ProductsPage(): React.JSX.Element {
       </div>
       <div className="bg-white rounded shadow-sm border p-3">
         <div className="table-responsive">
-          <table className="table table-hover align-middle m-0">
+          <table
+            className="table table-hover align-middle m-0"
+            style={{ minWidth: "1000px", fontSize: "13px" }}
+          >
             {/* Шапка таблицы */}
             <thead>
-              <tr className="table-light small text-uppercase text-muted">
+              <tr
+                className="table-light small text-uppercase text-muted"
+                style={{ fontSize: "11px" }}
+              >
                 <th>{t.products.title}</th>
                 <th>{t.products.type}</th>
                 <th>{t.products.guaranteeStart}</th>
@@ -65,28 +57,28 @@ export default function ProductsPage(): React.JSX.Element {
               {products.map((product) => {
                 return (
                   <tr key={product.id}>
-                    {/* 1. Название продукта */}
-                    <td className="fw-bold text-dark">{product.title}</td>
-                    {/* 2. Тип продукта (пока выводим сырой, динамический перевод прикрутим в доработках) */}
-                    <td className="text-secondary">{product.type}</td>
-                    {/* 3. Дата начала гарантии (Формат 1) */}
+                    {/* 1. Title Product */}
+                    <td className="fw-bold text-dark">{product?.title}</td>
+                    {/* 2. Type  of Products*/}
+                    <td className="text-secondary">{product?.type}</td>
+                    {/* 3. Date Start Gar  Format one*/}
                     <td className="text-muted font-monospace small">
-                      {formatShortDate(product.guaranteeStart, locale)}
+                      {formatShortDate(product?.guaranteeStart, locale)}
                     </td>
-                    {/* 4. Дата конца гарантии (Формат 2) */}
+                    {/* 4. Date End Gar format two*/}
                     <td className="text-muted small">
-                      {formatLongDate(product.guaranteeEnd, locale)}
+                      {formatLongDate(product?.guaranteeEnd, locale)}
                     </td>
-                    {/* 5. Цена USD */}
+                    {/* 5. Price USD */}
                     <td className="font-monospace fw-bold text-dark">
-                      {product.priceUsd} $
+                      {product?.priceUsd}
                     </td>
-                    {/* 6. Цена UAH */}
+                    {/* 6. Price UAH */}
                     <td className="font-monospace text-secondary">
-                      {product.priceUah} UAH
+                      {product?.priceUah}
                     </td>
-                    {/* 7. Название прихода */}
-                    <td className="text-muted small">{product.order.title}</td>
+                    {/* 7. Title Order */}
+                    <td className="text-muted small">{product.order?.title}</td>
                   </tr>
                 );
               })}
