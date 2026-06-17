@@ -20,8 +20,11 @@ export const translations = {
       priceUah: "Ціна UAH",
       action: "Дія",
       allTypes: "Всі типи",
+    },
+    productTypes: {
       laptops: "Ноутбуки",
       monitors: "Монітори",
+      phones: "Телефони",
     },
     topMenu: {
       activeSessions: "Активних сесій",
@@ -47,8 +50,11 @@ export const translations = {
       priceUah: "Price UAH",
       action: "Action",
       allTypes: "All types",
+    },
+    productTypes: {
       laptops: "Laptops",
       monitors: "Monitors",
+      phones: "Phones",
     },
     topMenu: {
       activeSessions: "Active sessions",
@@ -74,8 +80,11 @@ export const translations = {
       priceUah: "Цена UAH",
       action: "Действие",
       allTypes: "Все типы",
+    },
+    productTypes: {
       laptops: "Ноутбуки",
       monitors: "Мониторы",
+      phones: "Телефоны",
     },
     topMenu: {
       activeSessions: "Активных сессий",

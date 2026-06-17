@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { useTranslation } from "@/context/LanguageContext";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
@@ -15,6 +15,13 @@ export default function ProductsPage(): React.JSX.Element {
     error,
   } = useAppSelector((state: RootState) => state.products);
 
+  const [selectedType, setSelectedType] = useState<string>("ALL");
+  const uniqueTypes = Array.from(new Set(products.map((p) => p.type)));
+  const filteredProducts = products.filter((product) => {
+    if (selectedType === "ALL") return true;
+    return product.type === selectedType;
+  });
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -24,10 +31,21 @@ export default function ProductsPage(): React.JSX.Element {
         <h3 className="fw-bold text-secondary m-0">Продукты</h3>
 
         <div style={{ maxWidth: "200px" }} className="w-100">
-          <select className="form-select form-select-sm bg-white shadow-sm text-secondary fw-bold">
+          <select
+            className="form-select form-select-sm bg-white shadow-sm text-secondary fw-bold"
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+          >
             <option value="ALL">{t.products.allTypes}</option>
-            <option value="Laptops">{t.products.laptops}</option>
-            <option value="Monitors">{t.products.monitors}</option>
+            {uniqueTypes.map((type) => {
+              const lowerType =
+                type.toLowerCase() as keyof typeof t.productTypes;
+              return (
+                <option key={type} value={type}>
+                  {t.productTypes[lowerType] || type}
+                </option>
+              );
+            })}
           </select>
         </div>
       </div>
@@ -54,13 +72,19 @@ export default function ProductsPage(): React.JSX.Element {
             </thead>
 
             <tbody>
-              {products.map((product) => {
+              {filteredProducts.map((product) => {
                 return (
                   <tr key={product.id}>
                     {/* 1. Title Product */}
                     <td className="fw-bold text-dark">{product?.title}</td>
                     {/* 2. Type  of Products*/}
-                    <td className="text-secondary">{product?.type}</td>
+                    <td className="text-secondary">
+                      {(() => {
+                        const lowerType =
+                          product?.type?.toLowerCase() as keyof typeof t.productTypes;
+                        return t.productTypes[lowerType] || product?.type;
+                      })()}
+                    </td>
                     {/* 3. Date Start Gar  Format one*/}
                     <td className="text-muted font-monospace small">
                       {formatShortDate(product?.guaranteeStart, locale)}
