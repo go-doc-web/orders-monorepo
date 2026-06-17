@@ -35,6 +35,7 @@ export default function Sidebar(): React.JSX.Element {
             width={90}
             height={90}
             unoptimized
+            loading="eager"
             className="rounded-circle border"
             style={{ objectFit: "cover" }}
           />
