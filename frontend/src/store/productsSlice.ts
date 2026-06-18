@@ -18,6 +18,20 @@ export const fetchProducts = createAsyncThunk(
   },
 );
 
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (productId: number, thunkAPI) => {
+    try {
+      await axios.delete(`${API_URL}/products/${productId}`);
+      return productId;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to delete product",
+      );
+    }
+  },
+);
+
 interface ProductsState {
   items: Product[];
   loading: boolean;
@@ -38,6 +52,20 @@ const productsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(deleteProduct.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = state.items.filter(
+          (product) => product.id !== action.payload,
+        );
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;

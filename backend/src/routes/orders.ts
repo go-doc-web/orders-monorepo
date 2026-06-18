@@ -38,5 +38,32 @@ router.delete("/:id", async (req: Request, res: Response) => {
     res.status(500).json({ error: "Не удалось удалить приход" });
   }
 });
+// DELETE /api/orders/:orderId/products/:productId
+router.delete(
+  "/:orderId/products/:productId",
+  async (req: Request, res: Response) => {
+    try {
+      const { orderId, productId } = req.params;
+
+      const deleteResult = await prisma.product.deleteMany({
+        where: {
+          id: Number(productId),
+          orderId: Number(orderId),
+        },
+      });
+
+      if (deleteResult.count === 0) {
+        return res
+          .status(404)
+          .json({ error: "Продукт не найден в данном ордере" });
+      }
+
+      res.json({ success: true, productId: Number(productId) });
+    } catch (error) {
+      console.error("Ошибка при удалении продукта из ордера:", error);
+      res.status(500).json({ error: "Не удалось удалить продукт из прихода" });
+    }
+  },
+);
 
 export default router;

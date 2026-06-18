@@ -9,6 +9,15 @@ pre {
   margin-left: 0;
 }
 
+/* Orders */
+.order-btn-close {
+  width: 32px;
+  height: 32px;
+  top: -15px;
+  right: -15px;
+  z-index: 10;
+}
+
 @media (min-width: 768px) {
   .main-content-layout {
     margin-left: 260px;

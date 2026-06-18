@@ -28,6 +28,7 @@ model Product {
   title         String
   type          String
   specification String // Характеристики товара
+  status String @default("free")
 
   // guarantee - вынес а плосеие поля для удобства сортировки и фильтрации
   // price - также , указываю явные поля

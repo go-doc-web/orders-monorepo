@@ -3,6 +3,19 @@ export type LocaleType = "uk" | "en" | "ru";
 export const translations = {
   uk: {
     title: "Система Управління Інвентарем",
+    action: {
+      addProduct: "Додати продукт",
+    },
+    deleteModal: {
+      deleteModalTitle: "Ви впевнені, що хочете видалити цей продукт?",
+      deleteOrderModal: "Ви дійсно хочете видалити цей прихід?",
+      btnCancel: "Відміна",
+      btnDelete: "Видалити",
+    },
+    statuses: {
+      free: "Вільний",
+      repair: "В ремонті",
+    },
     menu: {
       orders: "ПРИХІД",
       groups: "ГРУПИ",
@@ -10,6 +23,27 @@ export const translations = {
       users: "КОРИСТУВАЧІ",
       settings: "НАЛАШТУВАННЯ",
     },
+    orders: {
+      title: "Приходи",
+      productsCount: "Продукти",
+      sum: "Сума",
+      noProducts: "В цьому приході поки немає товарів",
+      monthShort: [
+        "січ",
+        "лют",
+        "берез",
+        "квіт",
+        "трав",
+        "черв",
+        "лип",
+        "серп",
+        "верес",
+        "жовт",
+        "лист",
+        "груд",
+      ],
+    },
+
     products: {
       title: "Назва",
       type: "Тип",
@@ -30,15 +64,52 @@ export const translations = {
       activeSessions: "Активних сесій",
       search: "Пошук",
     },
+    error: {
+      page: "Помилка завантаження даних. Перевірте підключення до сервера.",
+    },
   },
   en: {
     title: "Inventory Management System",
+    action: {
+      addProduct: "Add product",
+    },
+    deleteModal: {
+      deleteModalTitle: "Are you sure you want to delete this product?",
+      deleteOrderModal: "Are you sure you want to delete this order?",
+      btnCancel: "Cancel",
+      btnDelete: "Delete",
+    },
+    statuses: {
+      free: "Free",
+      repair: "Under repair",
+    },
+
     menu: {
       orders: "ORDERS",
       groups: "GROUPS",
       products: "PRODUCTS",
       users: "USERS",
       settings: "SETTINGS",
+    },
+    orders: {
+      title: "Orders",
+      productsCount: "Products",
+      sum: "Sum",
+      noProducts: "There are no products in this order yet",
+      monthShort: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
     },
     products: {
       title: "Title",
@@ -60,15 +131,51 @@ export const translations = {
       activeSessions: "Active sessions",
       search: "Search",
     },
+    error: {
+      page: "Error loading data. Check your connection to the server.",
+    },
   },
   ru: {
     title: "Система Управления Инвентарем",
+    action: {
+      addProduct: "Добавить продукт",
+    },
+    deleteModal: {
+      deleteModalTitle: "Вы уверены, что хотите удалить этот продукт?",
+      deleteOrderModal: "Вы действительно хотите удалить этот приход?",
+      btnCancel: "Отмена",
+      btnDelete: "Удалить",
+    },
+    statuses: {
+      free: "Свободен",
+      repair: "В ремонте",
+    },
     menu: {
       orders: "ПРИХОД",
       groups: "ГРУППЫ",
       products: "ПРОДУКТЫ",
       users: "ПОЛЬЗОВАТЕЛИ",
       settings: "НАСТРОЙКИ",
+    },
+    orders: {
+      title: "Приходы",
+      productsCount: "Продукты",
+      sum: "Сумма",
+      noProducts: "В этом приходе пока нет товаров",
+      monthShort: [
+        "янв",
+        "фев",
+        "мар",
+        "апр",
+        "май",
+        "июн",
+        "июл",
+        "авг",
+        "сен",
+        "окт",
+        "ноя",
+        "дек",
+      ],
     },
     products: {
       title: "Название",
@@ -89,6 +196,9 @@ export const translations = {
     topMenu: {
       activeSessions: "Активных сессий",
       search: "Поиск",
+    },
+    error: {
+      page: "Ошибка загрузки данных. Проверьте подключение к серверу.",
     },
   },
 };

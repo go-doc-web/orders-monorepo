@@ -6,6 +6,7 @@ export interface Product {
   title: string;
   type: string;
   specification: string;
+  status: string;
   guaranteeStart: string;
   guaranteeEnd: string;
   priceUsd: number;
