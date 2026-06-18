@@ -3,6 +3,7 @@
 import React from "react";
 import { Trash3 } from "react-bootstrap-icons";
 import { useEscape } from "@/hooks/useEscape";
+import { useTranslation } from "@/context/LanguageContext";
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -24,6 +25,8 @@ export default function DeleteModal({
       onClose();
     }
   });
+
+  const { t } = useTranslation();
 
   // Если модалка закрыта — не рендерим HTML в DOM
   if (!isOpen) return null;
@@ -79,14 +82,14 @@ export default function DeleteModal({
             className="btn btn-light text-uppercase fw-bold small px-4 py-2"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            Отмена
+            {t.deleteModal.btnCancel}
           </button>
           <button
             onClick={onConfirm}
             className="btn btn-danger text-uppercase fw-bold small px-4 py-2 shadow-sm"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            Удалить
+            {t.deleteModal.btnDelete}
           </button>
         </div>
       </div>

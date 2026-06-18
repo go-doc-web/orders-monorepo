@@ -6,6 +6,11 @@ export const translations = {
     action: {
       addProduct: "Додати продукт",
     },
+    deleteModal: {
+      deleteModalTitle: "Ви впевнені, що хочете видалити цей продукт?",
+      btnCancel: "Відміна",
+      btnDelete: "Видалити",
+    },
     menu: {
       orders: "ПРИХІД",
       groups: "ГРУПИ",
@@ -60,6 +65,11 @@ export const translations = {
     title: "Inventory Management System",
     action: {
       addProduct: "Add product",
+    },
+    deleteModal: {
+      deleteModalTitle: "Are you sure you want to delete this product?",
+      btnCancel: "Cancel",
+      btnDelete: "Delete",
     },
 
     menu: {
@@ -116,6 +126,11 @@ export const translations = {
     title: "Система Управления Инвентарем",
     action: {
       addProduct: "Добавить продукт",
+    },
+    deleteModal: {
+      deleteModalTitle: "Вы уверены, что хотите удалить этот продукт?",
+      btnCancel: "Отмена",
+      btnDelete: "Удалить",
     },
     menu: {
       orders: "ПРИХОД",

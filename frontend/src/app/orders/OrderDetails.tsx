@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { PlusCircleFill, Trash3 } from "react-bootstrap-icons";
-import { Order } from "@/types";
+import { Order, Product } from "@/types";
 import { useTranslation } from "@/context/LanguageContext";
 import DeleteButton from "@/components/delete-btn/DeleteButton";
+import DeleteModal from "@/components/delete-modal/DeleteModal";
 
 interface OrderDetailsProps {
   order: Order;
@@ -14,6 +15,8 @@ export default function OrderDetalis({
   order,
   onClose,
 }: OrderDetailsProps): React.JSX.Element {
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+
   const { t } = useTranslation();
   return (
     <div className="bg-white rounded shadow-sm border p-4 position-relative">
@@ -102,9 +105,7 @@ export default function OrderDetalis({
                   </span>
                 </div>
                 <div className="ps-2 flex-shrink-0">
-                  <DeleteButton
-                    onClick={() => console.log(`Delete product: ${product.id}`)}
-                  />
+                  <DeleteButton onClick={() => setProductToDelete(product)} />
                 </div>
               </li>
             );
@@ -115,6 +116,16 @@ export default function OrderDetalis({
           </li>
         )}
       </ul>
+      <DeleteModal
+        isOpen={!!productToDelete}
+        onClose={() => setProductToDelete(null)}
+        onConfirm={() => {
+          console.log("Удаляем продукт с ID:", productToDelete?.id);
+          setProductToDelete(null);
+        }}
+        title={`${t.deleteModal.deleteModalTitle}`}
+        itemName={productToDelete?.title || ""}
+      />
     </div>
   );
 }
