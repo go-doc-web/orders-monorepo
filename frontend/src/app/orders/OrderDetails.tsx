@@ -4,6 +4,7 @@ import Image from "next/image";
 import { PlusCircleFill, Trash3 } from "react-bootstrap-icons";
 import { Order } from "@/types";
 import { useTranslation } from "@/context/LanguageContext";
+import DeleteButton from "@/components/delete-btn/DeleteButton";
 
 interface OrderDetailsProps {
   order: Order;
@@ -101,9 +102,9 @@ export default function OrderDetalis({
                   </span>
                 </div>
                 <div className="ps-2 flex-shrink-0">
-                  <button className="btn btn-link text-muted p-0 border-0">
-                    <Trash3 className="text-secondary" size={15} />
-                  </button>
+                  <DeleteButton
+                    onClick={() => console.log(`Delete product: ${product.id}`)}
+                  />
                 </div>
               </li>
             );

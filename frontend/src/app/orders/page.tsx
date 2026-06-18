@@ -8,7 +8,8 @@ import ErrorAlert from "@/components/error-alert/ErrorAlert";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
 import { ListTask, Trash3, ChevronRight } from "react-bootstrap-icons";
 import { Order } from "@/types";
-import OrderDetalis from "./OrderDetalis";
+import OrderDetalis from "./OrderDetails";
+import DeleteButton from "@/components/delete-btn/DeleteButton";
 
 export default function OrdersPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -141,9 +142,11 @@ export default function OrdersPage(): React.JSX.Element {
                     {selectedOrder ? (
                       <ChevronRight className="text-muted" size={18} />
                     ) : (
-                      <button className="btn btn-link text-muted p-0 border-0 action-delete-btn">
-                        <Trash3 className="text-secondary" size={15} />
-                      </button>
+                      <DeleteButton
+                        onClick={() =>
+                          console.log(`Delete order -  ${order.title}`)
+                        }
+                      />
                     )}
                   </div>
                 </div>
