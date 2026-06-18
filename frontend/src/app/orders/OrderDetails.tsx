@@ -104,7 +104,7 @@ export default function OrderDetalis({
                     className="text-warning fw-semibold"
                     style={{ fontSize: "13px" }}
                   >
-                    Свободен
+                    {product.status}
                   </span>
                 </div>
                 <div className="ps-2 flex-shrink-0">
@@ -114,9 +114,7 @@ export default function OrderDetalis({
             );
           })
         ) : (
-          <li className="text-muted small m-0">
-            В этом приходе пока нет товаров
-          </li>
+          <li className="text-muted small m-0">{t.orders.noProducts}</li>
         )}
       </ul>
       <DeleteModal

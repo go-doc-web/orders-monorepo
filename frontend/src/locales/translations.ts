@@ -22,6 +22,7 @@ export const translations = {
       title: "Приходи",
       productsCount: "Продукти",
       sum: "Сума",
+      noProducts: "В цьому приході поки немає товарів",
       monthShort: [
         "січ",
         "лют",
@@ -37,6 +38,7 @@ export const translations = {
         "груд",
       ],
     },
+
     products: {
       title: "Назва",
       type: "Тип",
@@ -83,6 +85,7 @@ export const translations = {
       title: "Orders",
       productsCount: "Products",
       sum: "Sum",
+      noProducts: "There are no products in this order yet",
       monthShort: [
         "Jan",
         "Feb",
@@ -143,6 +146,7 @@ export const translations = {
       title: "Приходы",
       productsCount: "Продукты",
       sum: "Сумма",
+      noProducts: "В этом приходе пока нет товаров",
       monthShort: [
         "янв",
         "фев",
