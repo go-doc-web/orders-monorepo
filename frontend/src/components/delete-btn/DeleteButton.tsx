@@ -4,7 +4,7 @@ import React from "react";
 import { Trash3 } from "react-bootstrap-icons";
 
 interface DeleteButtonProps {
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function DeleteButton({

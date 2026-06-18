@@ -45,17 +45,6 @@ export default function OrdersPage(): React.JSX.Element {
   };
 
   useEffect(() => {
-    if (selectedOrder) {
-      const updatedOrder = orders.find((o) => o.id === selectedOrder.id);
-      if (updatedOrder) {
-        setSelectedOrder(updatedOrder);
-      } else {
-        setSelectedOrder(null); // Если весь ордер был удален
-      }
-    }
-  }, [orders, selectedOrder?.id]);
-
-  useEffect(() => {
     dispatch(fetchOrders());
   }, [dispatch]);
 
@@ -65,7 +54,8 @@ export default function OrdersPage(): React.JSX.Element {
   if (error) {
     return <ErrorAlert />;
   }
-
+  const currentActiveOrder =
+    orders.find((o) => o.id === selectedOrder?.id) || null;
   return (
     <div className="container-fluid p-0">
       <div className="d-flex align-items-center mb-4 gap-3">
@@ -75,7 +65,7 @@ export default function OrdersPage(): React.JSX.Element {
       </div>
       <div className="row g-4">
         {/* Left Block */}
-        <div className={selectedOrder ? "col-md-5 col-12" : "col-12"}>
+        <div className={currentActiveOrder ? "col-md-5 col-12" : "col-12"}>
           {/* Список карточек */}
           <div className="d-flex flex-column gap-2">
             {orders.map((order) => {
@@ -96,18 +86,18 @@ export default function OrdersPage(): React.JSX.Element {
                   key={order.id}
                   onClick={() =>
                     setSelectedOrder(
-                      selectedOrder?.id === order.id ? null : order,
+                      currentActiveOrder?.id === order.id ? null : order,
                     )
                   }
                   className={`rounded shadow-sm border p-3 d-flex align-items-center justify-content-between gap-3 flex-wrap flex-md-nowrap mb-2 ${
-                    selectedOrder?.id === order.id
+                    currentActiveOrder?.id === order.id
                       ? "bg-light border-success "
                       : "bg-white"
                   }`}
                   style={{ fontSize: "14px", cursor: "pointer" }}
                 >
                   {/* Name Order */}
-                  {!selectedOrder && (
+                  {!currentActiveOrder && (
                     <div
                       className="flex-grow-1"
                       style={{ minWidth: "200px", maxWidth: "400px" }}
@@ -155,7 +145,7 @@ export default function OrdersPage(): React.JSX.Element {
                   </div>
 
                   {/* 4. Sum Order Uah Usd */}
-                  {!selectedOrder && (
+                  {!currentActiveOrder && (
                     <div className="text-end px-3">
                       <span className="text-muted small d-block font-monospace">
                         {totalUsd.toLocaleString(locale)} $
@@ -171,17 +161,17 @@ export default function OrdersPage(): React.JSX.Element {
 
                   {/* 5. Button Delete Order */}
                   <div className="ps-2">
-                    {selectedOrder?.id === order.id ? (
-                      // Стрелочку показываем ТОЛЬКО у того ордера, который сейчас открыт в правой панели
+                    {currentActiveOrder?.id === order.id ? (
                       <ChevronRight className="text-muted" size={18} />
-                    ) : null}
-                    {!selectedOrder && (
-                      <DeleteButton
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setOrderToDelete(order);
-                        }}
-                      />
+                    ) : (
+                      !currentActiveOrder && (
+                        <DeleteButton
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOrderToDelete(order);
+                          }}
+                        />
+                      )
                     )}
                   </div>
                 </div>
@@ -190,10 +180,10 @@ export default function OrdersPage(): React.JSX.Element {
           </div>
         </div>
         {/* Right block */}
-        {selectedOrder && (
+        {currentActiveOrder && (
           <div className="col-md-7 col-12">
             <OrderDetalis
-              order={selectedOrder}
+              order={currentActiveOrder}
               onClose={handleButtonClose}
               onDeleteProduct={handleDeleteProduct}
             />
