@@ -6,7 +6,8 @@ import { fetchOrders } from "@/store/orderSlice";
 import Loader from "@/components/loader/Loader";
 import ErrorAlert from "@/components/error-alert/ErrorAlert";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
-import { ListTask, Trash3, ChevronRight } from "react-bootstrap-icons";
+import { ListTask, ChevronRight } from "react-bootstrap-icons";
+import { useEscape } from "@/hooks/useEscape";
 import { Order } from "@/types";
 import OrderDetalis from "./OrderDetails";
 import DeleteButton from "@/components/delete-btn/DeleteButton";
@@ -15,6 +16,12 @@ export default function OrdersPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { t, locale } = useTranslation();
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  // Close Products List via ESC
+  useEscape(() => {
+    if (selectedOrder) {
+      setSelectedOrder(null);
+    }
+  });
 
   const {
     items: orders,
@@ -36,24 +43,6 @@ export default function OrdersPage(): React.JSX.Element {
   if (error) {
     return <ErrorAlert />;
   }
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSelectedOrder(null);
-      }
-    };
-
-    if (selectedOrder) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [selectedOrder]);
-
-  console.log("orders", orders);
 
   return (
     <div className="container-fluid p-0">
