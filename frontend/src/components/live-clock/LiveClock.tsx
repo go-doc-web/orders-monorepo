@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "@/context/LanguageContext";
 import { Clock } from "react-bootstrap-icons";
+import ActiveSessions from "../active-session/ActiveSessions";
 
 export default function LiveClock(): React.JSX.Element {
   const [time, setTime] = useState<Date | null>(null);
@@ -45,6 +46,7 @@ export default function LiveClock(): React.JSX.Element {
       <span className="text-capitalize">{formattedDate}</span>
 
       <div className="d-flex align-items-center gap-2 mt-1">
+        <ActiveSessions />
         <Clock className="text-dark" size={12} />
         <span className="text-dark font-monospace fw-semibold">
           {formattedTime}
