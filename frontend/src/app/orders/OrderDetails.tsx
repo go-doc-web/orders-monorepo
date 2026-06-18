@@ -10,14 +10,17 @@ import DeleteModal from "@/components/delete-modal/DeleteModal";
 interface OrderDetailsProps {
   order: Order;
   onClose: () => void;
+  onDeleteProduct: (productId: number) => void;
 }
 export default function OrderDetalis({
   order,
   onClose,
+  onDeleteProduct,
 }: OrderDetailsProps): React.JSX.Element {
   const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
   const { t } = useTranslation();
+
   return (
     <div className="bg-white rounded shadow-sm border p-4 position-relative">
       {/* Кнопка Закрыть (Крестик) */}
@@ -120,8 +123,9 @@ export default function OrderDetalis({
         isOpen={!!productToDelete}
         onClose={() => setProductToDelete(null)}
         onConfirm={() => {
-          console.log("Удаляем продукт с ID:", productToDelete?.id);
-          setProductToDelete(null);
+          if (productToDelete) {
+            onDeleteProduct(productToDelete.id);
+          }
         }}
         title={`${t.deleteModal.deleteModalTitle}`}
         itemName={productToDelete?.title || ""}

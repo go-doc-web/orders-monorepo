@@ -18,6 +18,23 @@ export const fetchOrders = createAsyncThunk(
   },
 );
 
+export const deleteProductFromOrder = createAsyncThunk(
+  "orders/deleteProductFromOrder",
+  async (
+    { orderId, productId }: { orderId: number; productId: number },
+    thunkAPI,
+  ) => {
+    try {
+      await axios.delete(`${API_URL}/orders/${orderId}/products/${productId}`);
+      return { orderId, productId };
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to delete product from order",
+      );
+    }
+  },
+);
+
 interface OrdersState {
   items: Order[];
   loading: boolean;
@@ -39,6 +56,31 @@ const ordersSlice = createSlice({
 
   extraReducers: (builder) => {
     builder
+      .addCase(deleteProductFromOrder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProductFromOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        const { orderId, productId } = action.payload;
+
+        // Находим нужный ордер и фильтруем его массив продуктов
+        state.items = state.items.map((order) => {
+          if (order.id === orderId) {
+            return {
+              ...order,
+              products: (order.products || []).filter(
+                (p) => p.id !== productId,
+              ),
+            };
+          }
+          return order;
+        });
+      })
+      .addCase(deleteProductFromOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       .addCase(fetchOrders.pending, (state) => {
         state.loading = true;
         state.error = null;

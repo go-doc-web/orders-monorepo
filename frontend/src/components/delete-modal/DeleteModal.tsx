@@ -86,14 +86,14 @@ export default function DeleteModal({
             className="btn btn-light text-uppercase fw-bold small px-4 py-2"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            {btnDelete}
+            {btnCancel}
           </button>
           <button
             onClick={onConfirm}
             className="btn btn-danger text-uppercase fw-bold small px-4 py-2 shadow-sm"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            {btnCancel}
+            {btnDelete}
           </button>
         </div>
       </div>

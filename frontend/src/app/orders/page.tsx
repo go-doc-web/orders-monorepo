@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { deleteProductFromOrder } from "@/store/orderSlice";
 import { useTranslation } from "@/context/LanguageContext";
 import { fetchOrders } from "@/store/orderSlice";
 import Loader from "@/components/loader/Loader";
@@ -32,6 +33,25 @@ export default function OrdersPage(): React.JSX.Element {
   const handleButtonClose = () => {
     setSelectedOrder(null);
   };
+  /* Delete products */
+  const handleDeleteProduct = (productId: number) => {
+    if (selectedOrder) {
+      dispatch(
+        deleteProductFromOrder({ orderId: selectedOrder.id, productId }),
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (selectedOrder) {
+      const updatedOrder = orders.find((o) => o.id === selectedOrder.id);
+      if (updatedOrder) {
+        setSelectedOrder(updatedOrder);
+      } else {
+        setSelectedOrder(null); // Если весь ордер был удален
+      }
+    }
+  }, [orders, selectedOrder?.id]);
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -167,7 +187,11 @@ export default function OrdersPage(): React.JSX.Element {
         {/* Right block */}
         {selectedOrder && (
           <div className="col-md-7 col-12">
-            <OrderDetalis order={selectedOrder} onClose={handleButtonClose} />
+            <OrderDetalis
+              order={selectedOrder}
+              onClose={handleButtonClose}
+              onDeleteProduct={handleDeleteProduct}
+            />
           </div>
         )}
       </div>
