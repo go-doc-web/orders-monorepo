@@ -8,6 +8,7 @@ import ErrorAlert from "@/components/error-alert/ErrorAlert";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
 import { ListTask, Trash3, ChevronRight } from "react-bootstrap-icons";
 import { Order } from "@/types";
+import OrderDetalis from "./OrderDetalis";
 
 export default function OrdersPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,6 +20,10 @@ export default function OrdersPage(): React.JSX.Element {
     loading,
     error,
   } = useAppSelector((state) => state.orders);
+
+  const handleButtonClose = () => {
+    setSelectedOrder(null);
+  };
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -41,6 +46,7 @@ export default function OrdersPage(): React.JSX.Element {
         </h3>
       </div>
       <div className="row g-4">
+        {/* Left Block */}
         <div className={selectedOrder ? "col-md-5 col-12" : "col-12"}>
           {/* Список карточек */}
           <div className="d-flex flex-column gap-2">
@@ -145,6 +151,12 @@ export default function OrdersPage(): React.JSX.Element {
             })}
           </div>
         </div>
+        {/* Right block */}
+        {selectedOrder && (
+          <div className="col-md-7 col-12">
+            <OrderDetalis order={selectedOrder} onClose={handleButtonClose} />
+          </div>
+        )}
       </div>
     </div>
   );

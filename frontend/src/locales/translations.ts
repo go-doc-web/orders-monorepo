@@ -3,6 +3,9 @@ export type LocaleType = "uk" | "en" | "ru";
 export const translations = {
   uk: {
     title: "Система Управління Інвентарем",
+    action: {
+      addProduct: "Додати продукт",
+    },
     menu: {
       orders: "ПРИХІД",
       groups: "ГРУПИ",
@@ -55,6 +58,10 @@ export const translations = {
   },
   en: {
     title: "Inventory Management System",
+    action: {
+      addProduct: "Add product",
+    },
+
     menu: {
       orders: "ORDERS",
       groups: "GROUPS",
@@ -107,6 +114,9 @@ export const translations = {
   },
   ru: {
     title: "Система Управления Инвентарем",
+    action: {
+      addProduct: "Добавить продукт",
+    },
     menu: {
       orders: "ПРИХОД",
       groups: "ГРУППЫ",
