@@ -11,6 +11,8 @@ interface DeleteModalProps {
   onConfirm: () => void;
   title: string;
   itemName: string;
+  btnCancel: string;
+  btnDelete: string;
 }
 
 export default function DeleteModal({
@@ -19,6 +21,8 @@ export default function DeleteModal({
   onConfirm,
   title,
   itemName,
+  btnCancel,
+  btnDelete,
 }: DeleteModalProps): React.JSX.Element | null {
   useEscape(() => {
     if (isOpen) {
@@ -82,14 +86,14 @@ export default function DeleteModal({
             className="btn btn-light text-uppercase fw-bold small px-4 py-2"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            {t.deleteModal.btnCancel}
+            {btnDelete}
           </button>
           <button
             onClick={onConfirm}
             className="btn btn-danger text-uppercase fw-bold small px-4 py-2 shadow-sm"
             style={{ fontSize: "12px", letterSpacing: "0.5px" }}
           >
-            {t.deleteModal.btnDelete}
+            {btnCancel}
           </button>
         </div>
       </div>

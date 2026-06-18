@@ -125,6 +125,8 @@ export default function OrderDetalis({
         }}
         title={`${t.deleteModal.deleteModalTitle}`}
         itemName={productToDelete?.title || ""}
+        btnCancel={t.deleteModal.btnCancel}
+        btnDelete={t.deleteModal.btnDelete}
       />
     </div>
   );
