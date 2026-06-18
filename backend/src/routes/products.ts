@@ -25,4 +25,20 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+// Delete product by ID
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+    res.json(deletedProduct);
+  } catch (error) {
+    console.error("Ошибка API Products при удалении:", error);
+    res.status(500).json({ error: "Не удалось удалить продукт" });
+  }
+});
+
 export default router;
