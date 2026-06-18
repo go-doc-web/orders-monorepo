@@ -11,6 +11,10 @@ export const translations = {
       btnCancel: "Відміна",
       btnDelete: "Видалити",
     },
+    statuses: {
+      free: "Вільний",
+      repair: "В ремонті",
+    },
     menu: {
       orders: "ПРИХІД",
       groups: "ГРУПИ",
@@ -73,6 +77,10 @@ export const translations = {
       btnCancel: "Cancel",
       btnDelete: "Delete",
     },
+    statuses: {
+      free: "Free",
+      repair: "Under repair",
+    },
 
     menu: {
       orders: "ORDERS",
@@ -134,6 +142,10 @@ export const translations = {
       deleteModalTitle: "Вы уверены, что хотите удалить этот продукт?",
       btnCancel: "Отмена",
       btnDelete: "Удалить",
+    },
+    statuses: {
+      free: "Свободен",
+      repair: "В ремонте",
     },
     menu: {
       orders: "ПРИХОД",

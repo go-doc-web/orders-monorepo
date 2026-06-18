@@ -101,10 +101,16 @@ export default function OrderDetalis({
                   style={{ minWidth: "100px" }}
                 >
                   <span
-                    className="text-warning fw-semibold"
+                    className={`fw-semibold ${
+                      product.status === "free" || product.status === "Свободен"
+                        ? "text-success"
+                        : "text-warning"
+                    }`}
                     style={{ fontSize: "13px" }}
                   >
-                    {product.status}
+                    {product.status === "free" || product.status === "Свободен"
+                      ? t.statuses?.free || "Свободен"
+                      : t.statuses?.repair || "В ремонте"}
                   </span>
                 </div>
                 <div className="ps-2 flex-shrink-0">
