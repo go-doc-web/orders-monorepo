@@ -36,6 +36,22 @@ export default function OrdersPage(): React.JSX.Element {
   if (error) {
     return <ErrorAlert />;
   }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedOrder(null);
+      }
+    };
+
+    if (selectedOrder) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedOrder]);
 
   console.log("orders", orders);
 
@@ -67,12 +83,17 @@ export default function OrdersPage(): React.JSX.Element {
               return (
                 <div
                   key={order.id}
+                  onClick={() =>
+                    setSelectedOrder(
+                      selectedOrder?.id === order.id ? null : order,
+                    )
+                  }
                   className={`rounded shadow-sm border p-3 d-flex align-items-center justify-content-between gap-3 flex-wrap flex-md-nowrap mb-2 ${
                     selectedOrder?.id === order.id
                       ? "bg-light border-success "
                       : "bg-white"
                   }`}
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "14px", cursor: "pointer" }}
                 >
                   {/* Name Order */}
                   {!selectedOrder && (
