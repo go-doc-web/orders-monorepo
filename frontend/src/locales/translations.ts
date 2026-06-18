@@ -8,6 +8,7 @@ export const translations = {
     },
     deleteModal: {
       deleteModalTitle: "Ви впевнені, що хочете видалити цей продукт?",
+      deleteOrderModal: "Ви дійсно хочете видалити цей прихід?",
       btnCancel: "Відміна",
       btnDelete: "Видалити",
     },
@@ -74,6 +75,7 @@ export const translations = {
     },
     deleteModal: {
       deleteModalTitle: "Are you sure you want to delete this product?",
+      deleteOrderModal: "Are you sure you want to delete this order?",
       btnCancel: "Cancel",
       btnDelete: "Delete",
     },
@@ -140,6 +142,7 @@ export const translations = {
     },
     deleteModal: {
       deleteModalTitle: "Вы уверены, что хотите удалить этот продукт?",
+      deleteOrderModal: "Вы действительно хотите удалить этот приход?",
       btnCancel: "Отмена",
       btnDelete: "Удалить",
     },

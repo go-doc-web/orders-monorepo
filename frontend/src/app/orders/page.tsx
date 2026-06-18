@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { deleteProductFromOrder } from "@/store/orderSlice";
+import { deleteProductFromOrder, deleteOrder } from "@/store/orderSlice";
 import { useTranslation } from "@/context/LanguageContext";
 import { fetchOrders } from "@/store/orderSlice";
 import Loader from "@/components/loader/Loader";
+import DeleteModal from "@/components/delete-modal/DeleteModal";
 import ErrorAlert from "@/components/error-alert/ErrorAlert";
 import { formatShortDate, formatLongDate } from "@/helpers/formatedDate";
 import { ListTask, ChevronRight } from "react-bootstrap-icons";
@@ -17,6 +18,7 @@ export default function OrdersPage(): React.JSX.Element {
   const dispatch = useAppDispatch();
   const { t, locale } = useTranslation();
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [orderToDelete, setOrderToDelete] = useState<Order | null>(null);
   // Close Products List via ESC
   useEscape(() => {
     if (selectedOrder) {
@@ -169,13 +171,16 @@ export default function OrdersPage(): React.JSX.Element {
 
                   {/* 5. Button Delete Order */}
                   <div className="ps-2">
-                    {selectedOrder ? (
+                    {selectedOrder?.id === order.id ? (
+                      // Стрелочку показываем ТОЛЬКО у того ордера, который сейчас открыт в правой панели
                       <ChevronRight className="text-muted" size={18} />
-                    ) : (
+                    ) : null}
+                    {!selectedOrder && (
                       <DeleteButton
-                        onClick={() =>
-                          console.log(`Delete order -  ${order.title}`)
-                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setOrderToDelete(order);
+                        }}
                       />
                     )}
                   </div>
@@ -195,6 +200,24 @@ export default function OrdersPage(): React.JSX.Element {
           </div>
         )}
       </div>
+      <DeleteModal
+        isOpen={!!orderToDelete}
+        onClose={() => setOrderToDelete(null)}
+        onConfirm={() => {
+          if (orderToDelete) {
+            //  dispatch Thunk'а
+            dispatch(deleteOrder(orderToDelete.id));
+            setOrderToDelete(null);
+          }
+        }}
+        title={
+          t.deleteModal.deleteOrderModal ||
+          "Вы действительно хотите удалить этот приход?"
+        }
+        itemName={orderToDelete?.title || ""}
+        btnCancel={t.deleteModal?.btnCancel || "Отмена"}
+        btnDelete={t.deleteModal?.btnDelete || "Удалить"}
+      />
     </div>
   );
 }
