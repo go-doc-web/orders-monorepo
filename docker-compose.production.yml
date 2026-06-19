@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  # 1. ИЗОЛИРОВАННАЯ БАЗА ДАННЫХ ДЛЯ ТЕСТОВОГО
+  postgres_db_prod:
+    image: postgres:15-alpine
+    container_name: inventory_postgres_prod
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret_password_2026
+      POSTGRES_DB: inventory_db
+    volumes:
+      - inventory_postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventory_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - existing_server_net
+
+  # 2. ПРОД-БЭКЕНД (Express)
+  backend_prod:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: inventory_backend_prod
+    restart: always
+    environment:
+      PORT: 3001
+      DATABASE_URL: "postgresql://postgres:secret_password_2026@inventory_postgres_prod:5432/inventory_db?schema=public"
+    expose:
+      - "3001" # Порт скрыт внутри сервера, доступен только для прокси
+    depends_on:
+      postgres_db_prod:
+        condition: service_healthy
+    networks:
+      - existing_server_net
+
+  # 3. ПРОД-ФРОНТЕНД (Next.js Production Build)
+  frontend_prod:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: inventory_frontend_prod
+    restart: always
+    environment:
+      # адрес  поддомена для бэкенда
+      - NEXT_PUBLIC_API_URL=https://api.orders.yourdomain.com
+    expose:
+      - "3000" # Порт скрыт внутри сервера
+    depends_on:
+      - backend_prod
+    networks:
+      - existing_server_net
+
+networks:
+  existing_server_net:
+    external: true
+    name: internal-net # Имя сети, где живет  Nginx Proxy Manager
+
+volumes:
+  inventory_postgres_prod_data:
