@@ -1,70 +1,168 @@
-# orders-monorepo
+````markdown
+# Orders & Products Management System
 
-# Orders & Products Management System (Monorepo)
+A high-performance full-stack web application designed for real-time warehouse inventory tracking, order management, and active session monitoring. Built with Next.js (App Router), Express, Prisma, PostgreSQL, and Socket.io.
 
-A modern full-stack web application for tracking warehouse inventory, managing order sheets, and monitoring real-time active user sessions.
-
----
-
-## 📊 Current Project Status (Milestone 1: Backend Completed)
-
-We have successfully designed and built a robust, production-ready backend infrastructure. The API is active, secure, and ready for frontend integration.
-
-### What has been done on the Backend:
-
-- **Database Layer**: Implemented isolated PostgreSQL inside Docker with persistent data volumes.
-- **Data Modeling & Seed**: Designed complete database schemas via Prisma ORM and filled tables with realistic multi-category testing data.
-- **Architecture**: Enforced clean Separation of Concerns (SoC) by decoupling database config, modular Express controllers/routes, and WebSockets.
-- **Real-Time Engine**: Built an event-driven session tracking module via Socket.io to broadcast live tab activity across all users.
-- **REST APIs**: Designed and verified highly optimized queries with target selective queries (`select`/`include`) to reduce network overhead.
+The entire system is containerized and ready to deploy via Docker Compose with automated database migrations and mock data seeding.
 
 ---
 
-## 🏗️ Repository Structure
+## 🚀 Tech Stack
 
-````text
+### Frontend
+
+- **Framework**: Next.js 16 (App Router, Production Build-optimized)
+- **Language**: TypeScript
+- **State Management**: Redux Toolkit (RTK)
+- **Styling & UI**: Bootstrap 5 / React-Bootstrap
+- **Real-Time Integration**: Socket.io-client
+- **Localization**: Custom context-based i18n framework (supports UA, EN, RU)
+- **Animations**: Native CSS Keyframes with GPU optimization (`will-change: transform`)
+
+### Backend & Database
+
+- **Runtime**: Node.js with Express
+- **ORM**: Prisma ORM (PostgreSQL Provider)
+- **Database**: PostgreSQL (Containerized with persistent volumes)
+- **Real-Time Engine**: Socket.io (Event-driven tab connection tracker)
+
+---
+
+## 🏗️ Core System Features
+
+1. **Orders Page (`/orders`)**:
+   - Interactive lists rendering total order amounts dynamically calculated in both **USD** and **UAH**.
+   - Derived-state **Detail View** panel smoothly expanding on click, showing related products.
+   - Secure cascading removal of orders and isolated product deletion via individual confirmation modals.
+2. **Products Page (`/products`)**:
+   - Flat tabular layout rendering serial numbers, production specs, warranty timelines, and master order titles.
+   - Dynamic product-type filtration driven by reactive state.
+3. **TopMenu & Real-Time Sync**:
+   - Fixed top navigation bar keeping essential tools accessible during scrolling.
+   - `LiveClock`: Multi-language real-time clock updating every second.
+   - `ActiveSessions`: WebSocket-driven tab counter that safely broadcasts and animates updates when users open or close multiple tabs/browsers simultaneously.
+4. **Security & Routing**:
+   - Immediate server-side redirect from root `/` to `/orders` eliminating empty placeholder screens.
+   - Strict `Disabled States` on incomplete features (Groups, Users, Settings) using UX-friendly native block cursors and explicit labels to prevent dead-end routing errors.
+
+---
+
+## 📦 Architecture & Repository Layout
+
+The project is structured as a **monoreposity** ensuring clean isolation between client logic and database models:
+
+```text
 orders-monorepo/
-├── backend/            # Express, Node.js, Prisma, Socket.io (Backend Service)
-│   ├── src/config/     # Prisma Client initialization
-│   ├── src/routes/     # Isolated REST controllers (Orders, Products)
-│   ├── src/sockets/    # Live session count engine
-│   └── README.md       # Internal backend documentation
-├── frontend/           # Next.js, React (Frontend Web Application)
-└── README.md           # Main Monorepo Guide (This file)
+├── backend/            # Express, Node.js, Prisma REST & WS Controllers
+│   ├── prisma/         # Database structural schemas and seed engines
+│   └── src/            # Isolated routes, sockets, and server config
+├── frontend/           # Next.js 16 Application (TypeScript + RTK)
+│   └── src/app/        # App Router Pages, context layers, and shared components
+└── docker-compose.yml  # Main orchestration layer for production deployment
+```
+````
 
-Ты абсолютно прав — в твоём исходном тексте после блока **🚀 Quick Start Guide** оформление сбилось и пошло обычным текстом, а не Markdown. Я поправил структуру, чтобы весь раздел был в чистом Markdown и выглядел единообразно. Вот исправленный кусок:
+---
 
-```markdown
-## 🚀 Quick Start Guide (All-in-One Execution)
+## ⚡ Quick Start Guide (Production Docker Launch)
 
-Follow these steps to spin up the database, seed test data, and boot the backend server.
+The absolute easiest way to clone, boot, and evaluate the entire ecosystem (Database, Backend, and Frontend) is utilizing **Docker Compose**.
 
-### 1️⃣ Launch the Database (Docker)
+### 1️⃣ Clone the Repository
+
+Ensure you have the Docker engine running on your machine.
+
+```bash
+git clone <your-repository-url>
+cd orders-monorepo
+
+```
+
+### 2️⃣ Run the Ecosystem
+
+Execute the following single command in the project root folder. It will download the official base images, build isolated application layers, apply Prisma schema migrations, execute mock data seeders, and start the servers:
+
+```bash
+docker-compose up --build
+
+```
+
+### 3️⃣ Access the Application
+
+Once the installation and seeding scripts terminate successfully, open your browser:
+
+- **Frontend Panel**: `http://localhost:3000` _(Auto-redirects to `/orders`)_
+- **Backend API Server**: `http://localhost:3001`
+- **Database Access**: Available locally on port `5433` _(Configured on port 5433 to completely isolate it from any pre-existing local PostgreSQL systems on standard port 5432)_.
+
+---
+
+## 🛠️ Manual Local Development Setup
+
+If you prefer to execute the application processes manually without Docker containers:
+
+### Prerequisites
+
+Ensure you have **Node.js v20+** and a running **PostgreSQL** instance.
+
+### 🔌 1. Backend Infrastructure Setup
+
+1. Navigate to the backend service and install packages:
 
 ```bash
 cd backend
-docker compose -f docker-compose.db.yml up -d
-````
+npm install
 
-### 2️⃣ Configure Environment Variables
+```
 
-Create a `.env` file inside `backend/`:
+2. Configure your local database access variables inside a `.env` file inside `backend/`:
 
 ```env
 PORT=3001
 DATABASE_URL="postgresql://postgres:secret_password_2026@localhost:5433/orders_db?schema=public"
+
 ```
 
-### 3️⃣ Setup Database Schemas & Seed Data
+3. Initialize the database state and insert mock datasets:
 
 ```bash
-npm install
-npx prisma generate
+npx prisma migrate dev --name init
 npx prisma db seed
+
 ```
 
-### 4️⃣ Boot the Application
+4. Start the development server:
+
+```bash
+npm run dev
+
+```
+
+### 💻 2. Frontend Interface Setup
+
+1. Navigate to the frontend workspace and install packages:
+
+```bash
+cd ../frontend
+npm install
+
+```
+
+2. Set up environment pointers pointing to your active backend inside `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL="http://localhost:3001/api"
+
+```
+
+3. Boot up the Next.js client engine:
 
 ```bash
 npm run dev
 ```
+
+## 📜 Evaluation Deliverables (dZENcode Checklist)
+
+- **DB Schema Blueprint**: Fully declared and accessible under `backend/prisma/schema.prisma`.
+- **Project Walkthrough Video**: A short demonstration showing reactive states, cascading deletions, localization switching, and active socket tab synchronization across duplicate screens is linked or attached inside the repository release materials.
+- **Git Branching Strategy**: Code updates were developed incrementally using descriptive feature branches to ensure clean version control tracking for review.
