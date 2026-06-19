@@ -22,6 +22,7 @@ export const translations = {
       products: "ПРОДУКТИ",
       users: "КОРИСТУВАЧІ",
       settings: "НАЛАШТУВАННЯ",
+      inDevelopment: "Цей розділ знаходиться у розробці",
     },
     orders: {
       title: "Приходи",
@@ -90,6 +91,7 @@ export const translations = {
       products: "PRODUCTS",
       users: "USERS",
       settings: "SETTINGS",
+      inDevelopment: "This section is under development",
     },
     orders: {
       title: "Orders",
@@ -156,6 +158,7 @@ export const translations = {
       products: "ПРОДУКТЫ",
       users: "ПОЛЬЗОВАТЕЛИ",
       settings: "НАСТРОЙКИ",
+      inDevelopment: "Этот раздел находится в разработке",
     },
     orders: {
       title: "Приходы",
