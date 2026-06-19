@@ -60,7 +60,8 @@ export default function OrdersPage(): React.JSX.Element {
     <div className="container-fluid p-0">
       <div className="d-flex align-items-center mb-4 gap-3">
         <h3 className="fw-bold text-secondary m-0 fs-5">
-          Приходы / {orders.length}
+          <ListTask className="mx-2 text-success" />
+          {t.orders.title} / {orders.length}
         </h3>
       </div>
       <div className="row g-4">
