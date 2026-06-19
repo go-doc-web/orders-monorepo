@@ -1,7 +1,11 @@
+Вот собранный, полностью исправленный и красиво отформатированный файл **`README.md`** на английском языке.
+
+Я убрал все разорванные куски кода, исправил разметку блоков `bash` и `env`, выровнял списки и сделал структуру монолитной. Можешь просто копировать весь текст из блока ниже и перезаписывать свой файл.
+
 ````markdown
 # Orders & Products Management System
 
-A high-performance full-stack web application designed for real-time warehouse inventory tracking, order management, and active session monitoring. Built with Next.js (App Router), Express, Prisma, PostgreSQL, and Socket.io.
+A high-performance full-stack web application designed for real-time warehouse inventory tracking, order management, and active session monitoring. Built with Next.js 16 (App Router), Express, Prisma, PostgreSQL, and Socket.io.
 
 The entire system is containerized and ready to deploy via Docker Compose with automated database migrations and mock data seeding.
 
@@ -49,7 +53,7 @@ The entire system is containerized and ready to deploy via Docker Compose with a
 
 ## 📦 Architecture & Repository Layout
 
-The project is structured as a **monoreposity** ensuring clean isolation between client logic and database models:
+The project is structured as a **monorepository** ensuring clean isolation between client logic and database models:
 
 ```text
 orders-monorepo/
@@ -99,23 +103,37 @@ Once the installation and seeding scripts terminate successfully, open your brow
 
 ## 🛠️ Manual Local Development Setup
 
-If you prefer to execute the application processes manually without Docker containers:
+If you prefer to execute the application processes manually (e.g., for code debugging without restarting containers), you will still need a running PostgreSQL instance. We will spin up only the database container via Docker, while executing the backend and frontend apps natively.
 
-### Prerequisites
+### 🗄️ Step 0. Database Launch & Initialization
 
-Ensure you have **Node.js v20+** and a running **PostgreSQL** instance.
+1. From the repository root, start only the PostgreSQL container:
 
-### 🔌 1. Backend Infrastructure Setup
+```bash
+docker-compose up -d postgres_db
 
-1. Navigate to the backend service and install packages:
+```
+
+2. Navigate to the backend folder and execute the schema synchronization command to automatically initialize the container and create the missing `orders_db` database:
 
 ```bash
 cd backend
+npx prisma db push
+
+```
+
+_Your isolated database is now created and accessible locally on port `5433`._
+
+### 🔌 1. Backend Infrastructure Setup
+
+1. Install the backend vendor dependencies:
+
+```bash
 npm install
 
 ```
 
-2. Configure your local database access variables inside a `.env` file inside `backend/`:
+2. Configure your local database access variables inside a `.env` file within the `backend/` directory:
 
 ```env
 PORT=3001
@@ -123,15 +141,14 @@ DATABASE_URL="postgresql://postgres:secret_password_2026@localhost:5433/orders_d
 
 ```
 
-3. Initialize the database state and insert mock datasets:
+3. Insert mock datasets into the newly created database tables:
 
 ```bash
-npx prisma migrate dev --name init
 npx prisma db seed
 
 ```
 
-4. Start the development server:
+4. Start the live local backend development process:
 
 ```bash
 npm run dev
@@ -140,7 +157,7 @@ npm run dev
 
 ### 💻 2. Frontend Interface Setup
 
-1. Navigate to the frontend workspace and install packages:
+1. Open a new terminal instance, navigate to the frontend workspace, and install packages:
 
 ```bash
 cd ../frontend
@@ -148,21 +165,28 @@ npm install
 
 ```
 
-2. Set up environment pointers pointing to your active backend inside `frontend/.env.local`:
+2. Establish the active environment pointers targeting your server instance inside `frontend/.env.local`:
 
 ```env
 NEXT_PUBLIC_API_URL="http://localhost:3001/api"
 
 ```
 
-3. Boot up the Next.js client engine:
+3. Boot up the Next.js client engine in development mode:
 
 ```bash
 npm run dev
+
 ```
+
+---
 
 ## 📜 Evaluation Deliverables (dZENcode Checklist)
 
 - **DB Schema Blueprint**: Fully declared and accessible under `backend/prisma/schema.prisma`.
 - **Project Walkthrough Video**: A short demonstration showing reactive states, cascading deletions, localization switching, and active socket tab synchronization across duplicate screens is linked or attached inside the repository release materials.
 - **Git Branching Strategy**: Code updates were developed incrementally using descriptive feature branches to ensure clean version control tracking for review.
+
+```
+
+```
