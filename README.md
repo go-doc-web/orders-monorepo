@@ -177,6 +177,17 @@ npm run dev
 
 ---
 
+## 🗄️ Database Schema Representation (Tech Note)
+
+The project evaluation checklist mentions providing a database schema file compatible with _MySQL Workbench_. However, in alignment with the full-stack architecture requested for this task, the database layer is built using **PostgreSQL** driven by **Prisma ORM**.
+
+Since _MySQL Workbench_ is designed exclusively for the MySQL ecosystem and cannot natively parse PostgreSQL or Prisma models, we have included a high-fidelity **ER Diagram (Entity-Relationship)** generated directly from our live database blueprint to fulfill the architectural review requirement:
+
+- **Declarative DB Schema Blueprint**: `backend/prisma/schema.prisma`
+- **Visual Entity Relationship Diagram (ERD)**: `backend/prisma/erd.svg`
+
+---
+
 ## 📜 Evaluation Deliverables (dZENcode Checklist)
 
 - **DB Schema Blueprint**: Fully declared and accessible under `backend/prisma/schema.prisma`.
