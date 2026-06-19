@@ -114,7 +114,7 @@ export default function OrdersPage(): React.JSX.Element {
                   )}
 
                   {/* 2. Sum of Orders*/}
-                  <div className="d-flex align-items-center gap-2 px-3 border-start border-end">
+                  <div className="d-flex align-items-center gap-4 px-3 border-start border-end">
                     <div
                       className="rounded-circle bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center"
                       style={{ width: "35px", height: "35px" }}
@@ -123,12 +123,12 @@ export default function OrdersPage(): React.JSX.Element {
                     </div>
                     <div>
                       <span
-                        className="fw-bold text-dark d-block lead m-0"
-                        style={{ fontSize: "16px", lineHeight: "1" }}
+                        className="text-muted text-dark d-block lead m-0"
+                        style={{ fontSize: "18px", lineHeight: "1" }}
                       >
                         {order.products?.length || 0}
                       </span>
-                      <span className="text-muted small">
+                      <span className="fw-bold small">
                         {t.orders.productsCount}
                       </span>
                     </div>
