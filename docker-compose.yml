@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  # 1. База данных PostgreSQL
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: inventory_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret_password_2026
+      POSTGRES_DB: inventory_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventory_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Бэкенд на Node.js / Express
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: inventory_backend
+    restart: always
+    environment:
+      PORT: 3001
+      DATABASE_URL: "postgresql://postgres:secret_password_2026@postgres_db:5432/inventory_db?schema=public"
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres_db:
+        condition: service_healthy # Ждём полной готовности базы перед стартом
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  # 3. Фронтенд на Next.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: inventory_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:3001/api
+    depends_on:
+      - backend
+    # volumes:
+    #   - ./frontend:/app
+    #   - /app/node_modules
+
+volumes:
+  postgres_data:
