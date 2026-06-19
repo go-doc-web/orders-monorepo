@@ -58,6 +58,30 @@ export default function Sidebar(): React.JSX.Element {
         {SIDEBAR_MENU_ITEMS.map((item: SidebarMenuItem) => {
           const isActive: boolean = pathname === item.pathname;
 
+          if (item.inDevelopment) {
+            return (
+              <div
+                key={item.pathname}
+                className="d-flex align-items-center py-2 px-3 my-1 rounded text-muted opacity-50 fw-bold border border-transparent"
+                style={{ cursor: "not-allowed", userSelect: "none" }}
+                title={t.menu.inDevelopment}
+              >
+                <div className="me-2 d-flex align-items-center">
+                  {item.icon}
+                </div>
+                <span className="small text-uppercase tracking-wider">
+                  {t.menu[item.translationKey]}
+                </span>
+                <span
+                  className="badge bg-light text-secondary border ms-auto px-1.5 py-0.5"
+                  style={{ fontSize: "10px" }}
+                >
+                  Soon
+                </span>
+              </div>
+            );
+          }
+
           return (
             <Nav.Link
               key={item.pathname}
@@ -70,7 +94,7 @@ export default function Sidebar(): React.JSX.Element {
               }`}
               style={{ transition: "0.2s" }}
             >
-              {item.icon}
+              <div className="me-2 d-flex align-items-center">{item.icon}</div>
               <span className="small text-uppercase tracking-wider">
                 {t.menu[item.translationKey]}
               </span>

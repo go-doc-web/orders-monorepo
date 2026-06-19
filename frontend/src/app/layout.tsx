@@ -42,7 +42,9 @@ export default function RootLayout({
               <div className="w-100 d-flex flex-column main-content-layout">
                 <TopMenu />
                 {/* Main */}
-                <main className="p-4 flex-grow-1">{children}</main>
+                <main className="p-4 flex-grow-1" style={{ marginTop: "80px" }}>
+                  {children}
+                </main>
               </div>
             </div>
           </LanguageProvider>

@@ -14,26 +14,31 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
     pathname: "/orders",
     translationKey: "orders",
     icon: <FileEarmarkPlus className="me-3" size={20} />,
+    inDevelopment: false,
   },
   {
     pathname: "/groups",
     translationKey: "groups",
     icon: <Grid className="me-3" size={20} />,
+    inDevelopment: true,
   },
   {
     pathname: "/products",
     translationKey: "products",
     icon: <BoxSeam className="me-3" size={20} />,
+    inDevelopment: false,
   },
   {
     pathname: "/users",
     translationKey: "users",
     icon: <People className="me-3" size={20} />,
+    inDevelopment: true,
   },
   {
     pathname: "/settings",
     translationKey: "settings",
     icon: <Gear className="me-3" size={20} />,
+    inDevelopment: true,
   },
 ];
 

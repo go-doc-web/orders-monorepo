@@ -32,4 +32,5 @@ export interface SidebarMenuItem {
   pathname: string;
   translationKey: "orders" | "groups" | "products" | "users" | "settings";
   icon: React.ReactNode;
+  inDevelopment?: boolean;
 }
